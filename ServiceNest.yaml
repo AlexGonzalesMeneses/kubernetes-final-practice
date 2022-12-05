@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nest-api-agonzales
+  labels:
+    app: nest-api-agonzales
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30000
+  selector:
+    app: nest-api-agonzales
+    tier: backend
+    role: db

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nest-api-agonzales
+  labels:
+    app: nest-api-agonzales
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nest-api-agonzales
+  template:
+    metadata:
+      labels:
+        app: nest-api-agonzales
+    spec:
+      containers:
+        - name: nest-api-agonzales
+          image: agonzales10/nest-api-agonzales
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: app-config
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
